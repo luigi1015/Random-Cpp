@@ -4,22 +4,22 @@
 
 namespace RNG
 {//RNG for Random Number Generator
-	unsigned long generateNumber( unsigned long min, unsigned long max )
-	{//Generate and returns a single random unsigned long between min and max.
-		std::uniform_int_distribution<unsigned long> uid(min, max);
+	template <class T> T generateNumber( T min, T max )
+	{//Generate and returns a single random unsigned long between min and max. Assumes T is an interger-like variable, other object types will produce undefined behavior.
+		std::uniform_int_distribution<T> uid(min, max);
 		std::random_device rd;
 		std::mt19937 generator(rd());
 		
 		return uid(generator);
 	}
 
-	std::vector<unsigned long> generateNums( unsigned long min, unsigned long max, unsigned long length )
-	{//Generate length number of random unsigned longs between min and max. Returns a vector of the random unsigned longs.
-		std::vector<unsigned long> nums;
+	template <class T> std::vector<T> generateNums( T min, T max, T length )
+	{//Generate length number of random numbers between min and max.  Assumes T is an interger-like variable, other object types will produce undefined behavior. Returns a vector of the random numbers of type T.
+		std::vector<T> nums;
 		
 		for( unsigned long i = 0; i < length; i++ )
 		{//Add length number of random integers by calling generateNumber length times.
-			nums.push_back(  generateNumber(min, max) );
+			nums.push_back(  generateNumber<T>(min, max) );
 		}
 		
 		return nums;
@@ -50,7 +50,7 @@ namespace RNG
 
 		for( unsigned long i = 0; i < length; i++ )
 		{//Add length number of random hex characters by calling generateNumber length times and passing it through hexValues.
-			hexChars.push_back(  hexValues.at(generateNumber(0, hexValues.size()-1)) );
+			hexChars.push_back(  hexValues.at(generateNumber<unsigned long>(0, hexValues.size()-1)) );
 		}
 		
 		return hexChars;
@@ -127,7 +127,7 @@ namespace RNG
 
 		for( unsigned long i = 0; i < length; i++ )
 		{//Add length number of random hex characters by calling generateNumber length times and passing it through hexValues.
-			alphaNumericChars.push_back(  alphaNumericValues.at(generateNumber(0, alphaNumericValues.size()-1)) );
+			alphaNumericChars.push_back(  alphaNumericValues.at(generateNumber<unsigned long>(0, alphaNumericValues.size()-1)) );
 		}
 		
 		return alphaNumericChars;
@@ -236,7 +236,7 @@ namespace RNG
 
 		for( unsigned long i = 0; i < length; i++ )
 		{//Add length number of random hex characters by calling generateNumber length times and passing it through hexValues.
-			printableChars.push_back(  printableValues.at(generateNumber(0, printableValues.size()-1)) );
+			printableChars.push_back(  printableValues.at(generateNumber<unsigned long>(0, printableValues.size()-1)) );
 		}
 		
 		return printableChars;
