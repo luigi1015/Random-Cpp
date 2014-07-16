@@ -1,3 +1,6 @@
+#ifndef RNG_Random
+#define RNG_Random
+
 #include <vector>
 #include <random>
 #include <functional>
@@ -242,3 +245,5 @@ namespace RNG
 		return printableChars;
 	}
 }
+
+#endif /* RNG_Random */
